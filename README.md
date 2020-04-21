@@ -15,4 +15,56 @@ Two robots (UAV and UGV) populate the environment and the mission is to collect 
 
 # Example:
 
+- Gazebo environment: 
 
+```
+roslaunch case_study_2 case_study_2_sim_bringup.launch
+```
+
+- Stow the robot arm
+
+```
+rosrun case_study_2 stow_ur5
+```
+
+- Close the gripper
+
+```
+rosrun case_study_2 close_3fgripper
+```
+
+- Open the gripper
+
+```
+rosrun case_study_2 open_3fgripper
+```
+
+- UGV MoveIt! bringup
+
+```
+roslaunch case_study_2 ugv_moveit_planning_execution.launch
+```
+
+- UGV Navigation stack bringup
+
+```
+roslaunch case_study_2 ugv_navigation.launch
+```
+
+- Apriltag
+
+```
+roslaunch case_study_2 apriltag_gazebo.launch
+```
+
+- UAV joystick control
+
+```
+roslaunch case_study_2 uav_joystick.launch
+```
+
+- UAV 3D Navigation stack bringup
+
+```
+roslaunch case_study_2 uav_3dnavigation.launch
+```
