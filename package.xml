@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>case_study_2</name>
+  <version>0.0.1</version>
+  <description>case_study_2 package</description>
+
+  <maintainer email="elisa.tosello@unipd.it">Elisa Tosello</maintainer>
+  <license>Apache</license>
+  <author email="elisa.tosello@unipd.it">Elisa Tosello</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>roslib</depend>
+  <depend>moveit_core</depend>
+  <depend>moveit_ros_planning_interface</depend>
+  <depend>geometry_msgs</depend>
+  <depend>ur_modern_driver</depend>
+  <depend>moveit_visual_tools</depend>
+  <depend>apriltag_ros</depend>
+
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+    <gazebo_ros
+      gazebo_plugin_path="${prefix}/lib"
+      gazebo_media_path="${prefix}"
+      gazebo_model_path="${prefix}/models:${prefix}/..:${prefix}"/>
+  </export>
+
+</package>
+

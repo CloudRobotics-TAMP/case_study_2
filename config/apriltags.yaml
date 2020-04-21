@@ -1,0 +1,5 @@
+standalone_tags:
+  [
+    {id: 1, size: 0.052, frame_id: green_cube},
+    {id: 2, size: 0.052, frame_id: blue_cube}
+  ]

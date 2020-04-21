@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- UGV parameters -->
+
+  <arg name="world_name" 		default="$(find case_study_2)/worlds/recovery_scene_no_ground.world"			/>
+
+  <arg name="ugv_urdf_extras" 		default="$(find husky_ur_description)/urdf/husky_ur5_3fgripper_description.urdf.xacro"	/>
+ 
+  <arg name="ugv_laser_enabled"		default="true"				/>
+  <arg name="ugv_kinect_enabled" 	default="true"				/>
+
+  <arg name="ugv_x" 			default="0.0"				/>
+  <arg name="ugv_y" 			default="0.0"				/>
+  <arg name="ugv_z" 			default="0.3"				/>
+  <arg name="ugv_yaw" 			default="0.0"				/>
+
+  <!-- UAV parameters -->
+
+  <arg name="uav_namespace" 		default="uav"				/>
+
+  <arg name="uav_x" 			default="6.0"				/>
+  <arg name="uav_y" 			default="1.0"				/>
+  <arg name="uav_z" 			default="0.08"				/>
+  <arg name="uav_yaw"   		default="0" 				/>
+
+  <arg name="uav_enable_camera" 	default="true"				/>
+  <arg name="uav_enable_VI_sensor"	default="false"				/>
+
+  <arg name="uav_enable_logging" 	default="false"				/>
+  <arg name="uav_enable_ground_truth" 	default="true"				/>
+  <arg name="uav_log_file" 		default="quad"				/>
+
+  <arg name="uav_tf_prefix" 		default="/quad"				/>
+  <arg name="uav_name" 			default="quad"				/>
+  <arg name="uav_model" 		default="$(find quad_description)/urdf/kit_c_base.xacro"	/>
+
+  <!-- Gazebo world -->
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+  	<arg name="world_name" 		value="$(arg world_name)"		/> 
+    	<arg name="paused" 		value="true"				/>
+    	<arg name="use_sim_time" 	value="true"				/>
+    	<arg name="gui" 		value="true"				/>
+    	<arg name="headless" 		value="false"				/>
+    	<arg name="debug" 		value="false"				/>
+  </include>
+
+  <!-- UGV bringup -->
+
+  <include file="$(find case_study_2)/launch/internal/spawn_ugv.launch">
+    	<arg name="laser_enabled" 	value="$(arg ugv_laser_enabled)"	/>
+    	<arg name="kinect_enabled" 	value="$(arg ugv_kinect_enabled)"	/>
+   	<arg name="urdf_extras" 	value="$(arg ugv_urdf_extras)"		/>
+    	<arg name="x" 			value="$(arg ugv_x)"			/>
+    	<arg name="y" 			value="$(arg ugv_y)"			/>
+    	<arg name="z"		 	value="$(arg ugv_z)"			/>
+    	<arg name="yaw" 		value="$(arg ugv_yaw)"			/>
+  </include>
+
+  <!-- UAV bringup -->
+
+  <include file="$(find case_study_2)/launch/internal/spawn_uav.launch">
+    	<arg name="enable_camera" 	value="$(arg uav_enable_camera)"	/>
+    	<arg name="enable_VI_sensor" 	value="$(arg uav_enable_VI_sensor)"	/>
+    	<arg name="enable_logging" 	value="$(arg uav_enable_logging)"	/>
+    	<arg name="enable_ground_truth" value="$(arg uav_enable_ground_truth)"	/>
+    	<arg name="log_file" 		value="$(arg uav_log_file)"		/>
+    	<arg name="tf_prefix" 		value="$(arg uav_tf_prefix)"		/>
+    	<arg name="robot_namespace" 	value="$(arg uav_namespace)"		/>
+    	<arg name="x" 			value="$(arg uav_x)"			/>
+    	<arg name="y" 			value="$(arg uav_y)"			/>
+    	<arg name="z" 			value="$(arg uav_z)"			/>
+    	<arg name="yaw" 		value="$(arg uav_yaw)"			/>
+  	<arg name="name" 		value="$(arg uav_name)"			/>
+  	<arg name="model" 		value="$(arg uav_model)"		/>
+  </include>
+
+  <node pkg="tf" type="static_transform_publisher" name="map_broadcaster" args="0 0 0 0 0 0 /map $(arg uav_tf_prefix)/base_link 100" />
+
+</launch>

@@ -1,0 +1,27 @@
+#!/usr/bin/env python
+import rospy
+from robotiq_3f_gripper_articulated_msgs.msg import Robotiq3FGripperRobotOutput
+
+def closing_callback(event):
+    print "Published and latched Open Gripper message for 3.0 seconds"
+    rospy.signal_shutdown("Stop publishing")
+
+def open_gripper():
+    pub = rospy.Publisher('/left_hand/command', Robotiq3FGripperRobotOutput, queue_size=1)
+    rospy.init_node('open_gripper')
+    open_command = Robotiq3FGripperRobotOutput()
+    open_command.rACT = 1
+    open_command.rGTO = 1
+    open_command.rSPA = 200 
+    rate = rospy.Rate(10) 
+    rospy.Timer(rospy.Duration(3.0), closing_callback)
+    while not rospy.is_shutdown():
+           pub.publish(open_command)   
+           rate.sleep()
+        
+
+if __name__ == '__main__': 
+    try:
+        open_gripper()
+    except rospy.ROSInterruptException:
+        pass

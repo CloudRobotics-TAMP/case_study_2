@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="paused" 		default="true"		/>
+  <arg name="gui" 		default="true"		/>
+  <arg name="use_sim_time" 	default="true"		/>
+    
+  <!-- startup simulated world -->
+  
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    	<arg name="world_name" 		value="$(find case_study_2)/worlds/recovery_scene_no_ground.world"	/> 
+    	<arg name="paused" 		value="$(arg paused)"							/>
+    	<arg name="gui" 		value="$(arg gui)"							/>
+    	<arg name="use_sim_time" 	value="$(arg use_sim_time)"						/>
+  </include>
+
+
+</launch>

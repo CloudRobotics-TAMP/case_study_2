@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <arg name="robot_namespace" 	default="/"	/>
+
+  <arg name="sim" 		default="false" />
+  <arg name="debug" 		default="false" />
+
+  <group ns="$(arg robot_namespace)">
+
+  	<!-- Remap follow_joint_trajectory -->
+  	<remap if="$(arg sim)" from="/follow_joint_trajectory" to="/ur_arm_controller/follow_joint_trajectory"/>
+
+  	<!-- Launch moveit -->
+  	<include file="$(find husky_ur5_3fgripper_moveit_config)/launch/move_group.launch">
+    		<arg name="debug" default="$(arg debug)" />
+  	</include>
+
+  </group>
+</launch>
+

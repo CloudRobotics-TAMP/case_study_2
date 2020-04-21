@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="uav_enabled"           	default="false"				/>
+  <arg name="ugv_enabled"           	default="false"				/>
+ 
+  <arg name="uav_camera_base_name"	default="/quad/camera_"			/>
+  <arg name="uav_camera_frame"    	default="/quad/quad/camera_link"  	/>
+  <arg name="uav_image_topic"    	default="/rgb/image_raw"	  	/>
+  <arg name="uav_ns"    		default="/quad"  			/>
+
+  <arg name="ugv_camera_base_name"	default="/camera"			/>
+  <arg name="ugv_camera_frame"    	default="/camera_link"  		/>
+  <arg name="ugv_image_topic"    	default="/rgb_image_rase"	  	/>
+  <arg name="ugv_ns"    		default="/ugv"  			/>
+
+  <arg name="apriltag_config_yaml"       default="$(find case_study_2)/config/apriltags.yaml"  />
+
+  <!-- start Apriltags detector for the UAV -->
+
+  <group ns="$(arg uav_ns)" if="$(arg uav_enabled)">       
+  
+	<include file="$(find case_study_2)/launch/internal/apriltag_ros.launch">
+    		<arg name="camera_name"		value="$(arg uav_camera_base_name)"	/>
+    		<arg name="camera_frame"    	value="$(arg uav_camera_frame)"		/>
+    		<arg name="image_topic"        	value="$(arg uav_image_topic)"		/>
+    		<arg name="apriltags_cfg_yaml" 	value="$(arg apriltag_config_yaml)"	/>
+  	</include>
+  
+  </group>
+
+  <!-- start Apriltags detector for the UGV -->
+
+  <group ns="$(arg ugv_ns)" if="$(arg ugv_enabled)">       
+  
+	<include file="$(find case_study_2)/launch/internal/apriltag_ros.launch">
+    		<arg name="camera_name"		value="$(arg ugv_camera_base_name)"	/>
+    		<arg name="camera_frame"    	value="$(arg ugv_camera_frame)" 	/>
+    		<arg name="image_topic"        	value="$(arg ugv_image_topic)"         	/>
+    		<arg name="apriltags_cfg_yaml" 	value="$(arg apriltag_config_yaml)"     />
+  	</include>
+
+  </group>
+
+</launch>
